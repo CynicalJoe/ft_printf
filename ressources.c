@@ -113,12 +113,13 @@ char	*adr_frmt(char *hexa)
 	adr[1] = 'x';
 	len = 2;
 	while (hexa[i])
-	{
-		adr[len] = hexa[i];
-		len++;
-		i++;
-	}
+		adr[len++] = hexa[i++];
 	adr[len] = '\0';
+	if (!ft_strncmp(adr, "0x0", ft_strlen(adr)))
+	{
+		free(adr);
+		adr = ft_strdup("(nil)");
+	}
 	free(hexa);
 	return (adr);
 }

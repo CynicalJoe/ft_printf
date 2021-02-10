@@ -19,7 +19,7 @@ t_flags	*handle_star(t_flags *param, va_list ap)
 	temp = va_arg(ap, int);
 	if (temp < 0)
 		temp = -temp;
-	if (param->star == 1)
+	if (param->point == 1)
 		param->maxwidth = (size_t)temp;
 	else
 		param->minwidth = (size_t)temp;

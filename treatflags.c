@@ -15,7 +15,7 @@
 char	*max_width_zero(t_flags *param, char *new, size_t index)
 {
 	if (param->maxwidth == 0)
-		new[index] = ' ';
+		new[index] = '\0';
 	return (new);
 }
 
@@ -23,6 +23,8 @@ t_flags	*flag_hub(t_flags *param)
 {
 	if (param->error || !param->buf)
 		return (NULL);
+	if (param->buf[0] == '\0' && param->conv_type == 'c')
+		param->is_term++;
 	if (param->point == 1)
 		treat_prec(param);
 	else if (!param->error)
@@ -32,7 +34,7 @@ t_flags	*flag_hub(t_flags *param)
 			wdth_right(param);
 		else
 		{
-			if (param->zero && param->star && !param->error)
+			if (param->zero && !param->error && param->conv_type != 'p')
 				wdth_left(param, '0');
 			else if (!param->error)
 				wdth_left(param, ' ');
@@ -76,8 +78,12 @@ t_flags	*nbr_prec(t_flags *param)
 t_flags	*treat_prec(t_flags *param)
 {
 	get_width(param);
-	if (param->conv_type == 's')
+	if (param->conv_type == 's' && param->star == 1)
+		return (param);
+	if (param->conv_type == 's' && ft_strncmp(param->buf, "(null)", ft_strlen(param->buf)))
 		param->buf[param->maxwidth] = '\0';
+	else if (param->conv_type == 's' && param->maxwidth < ft_strlen(param->buf))
+		param->buf[0] = '\0';
 	if (is_in_set(param->conv_type, "diuxX"))
 		nbr_prec(param);
 	if (param->minus && !param->error)

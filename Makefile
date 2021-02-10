@@ -1,4 +1,4 @@
-SRCS	= free.c conversion.c conversionptr.c flags.c ft_printf.c ressources.c untoa.c treatflags.c width.c
+SRCS	= writer.c free.c conversion.c conversionptr.c flags.c ft_printf.c ressources.c untoa.c treatflags.c width.c
 
 HEADER	= includes
 

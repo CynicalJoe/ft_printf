@@ -91,4 +91,6 @@ t_flags			*free_error(t_flags *param);
 
 t_flags			*error(t_flags *param);
 
+t_flags			*writer(t_flags *param);
+
 #endif

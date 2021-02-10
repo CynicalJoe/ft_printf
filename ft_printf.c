@@ -15,7 +15,7 @@
 t_flags	*conversion_hub(t_flags *param, va_list ap)
 {
 	check_conversion(param, ap);
-	while (param->conver)
+	while (param->conver && !param->is_term)
 	{
 		if (param->conv_type == 'd' || param->conv_type == 'i')
 			conversion_int(param, ap);
@@ -52,8 +52,8 @@ int		ft_printf(const char *format, ...)
 		va_end(ap);
 		return (-1);
 	}	
-	ft_putstr_fd(param->print, 1);
-	len = ft_strlen(param->print);
+	writer(param);
+	len = param->len;
 	va_end(ap);
 	free(param->print);
 	free(param);
