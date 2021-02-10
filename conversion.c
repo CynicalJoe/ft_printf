@@ -19,13 +19,14 @@ t_flags	*conversion_char(t_flags *param, va_list ap)
 	char	*new_print;
 
 	if (!(param->buf = malloc(sizeof(char) * 2)))
-		return (NULL);
+		return (error(param));
 	param->buf[0] = (char)va_arg(ap, int);
 	param->buf[1] = '\0';
-	flag_hub(param);
+	if (!(flag_hub(param)))
+		return (error(param));
 	if (!(new_print = (char*)malloc(sizeof(char) *
 	(ft_strlen(param->print) + ft_strlen(param->buf) + 1))))
-		return (NULL);
+		return (error(param));
 	copy_start(param->print, new_print, param->index);
 	i = param->index;
 	copy_conv(param->buf, new_print, i, 0);
@@ -35,6 +36,7 @@ t_flags	*conversion_char(t_flags *param, va_list ap)
 	i++;
 	copy_conv(param->print, new_print, j, i);
 	free(param->print);
+	free(param->buf);
 	param->print = new_print;
 	return (param);
 }
@@ -48,10 +50,11 @@ t_flags	*conversion_int(t_flags *param, va_list ap)
 
 	n = va_arg(ap, int);
 	param->buf = ft_itoa(n);
-	flag_hub(param);
+	if (!(flag_hub(param)))
+		return (error(param));
 	if (!(new_print = (char*)malloc(sizeof(char) *
 	(ft_strlen(param->print) + ft_strlen(param->buf) + 1))))
-		return (NULL);
+		return (error(param));
 	copy_start(param->print, new_print, param->index);
 	i = param->index;
 	copy_conv(param->buf, new_print, i, 0);
@@ -75,10 +78,11 @@ t_flags	*conversion_str(t_flags *param, va_list ap)
 
 	str = va_arg(ap, char*);
 	param->buf = ft_strdup(str);
-	flag_hub(param);
+	if (!flag_hub(param))
+		return (error(param));
 	if (!(new_print = (char*)malloc(sizeof(char) *
 	(ft_strlen(param->print) + ft_strlen(param->buf) + 1))))
-		return (NULL);
+		return (error(param));
 	copy_start(param->print, new_print, param->index);
 	i = param->index;
 	copy_conv(param->buf, new_print, i, 0);
@@ -102,10 +106,11 @@ t_flags	*conversion_unsgnd(t_flags *param, va_list ap)
 
 	n = va_arg(ap, unsigned int);
 	param->buf = ft_untoa(n);
-	flag_hub(param);
+	if (!(flag_hub(param)))
+		return (NULL);
 	if (!(new_print = (char*)malloc(sizeof(char) *
 	(ft_strlen(param->print) + ft_strlen(param->buf) + 1))))
-		return (NULL);
+		return (error(param));
 	copy_start(param->print, new_print, param->index);
 	i = param->index;
 	copy_conv(param->buf, new_print, i, 0);

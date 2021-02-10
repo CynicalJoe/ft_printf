@@ -21,21 +21,25 @@ char	*max_width_zero(t_flags *param, char *new, size_t index)
 
 t_flags	*flag_hub(t_flags *param)
 {
+	if (param->error || !param->buf)
+		return (NULL);
 	if (param->point == 1)
 		treat_prec(param);
-	else
+	else if (!param->error)
 	{
 		get_width(param);
-		if (param->minus)
+		if (param->minus && !param->error)
 			wdth_right(param);
 		else
 		{
-			if (param->zero && param->star)
+			if (param->zero && param->star && !param->error)
 				wdth_left(param, '0');
-			else
+			else if (!param->error)
 				wdth_left(param, ' ');
 		}
 	}
+	if (param->error)
+		return (NULL);
 	return (param);
 }
 
@@ -48,7 +52,7 @@ t_flags	*nbr_prec(t_flags *param)
 	i = 0;
 	len = ft_strlen(param->buf);
 	if (!(new = malloc(sizeof(char) * (len + param->maxwidth + 1))))
-		return (NULL);
+		return (error(param));
 	if (param->buf[i] == '-')
 	{
 		new[i++] = '-';
@@ -64,6 +68,7 @@ t_flags	*nbr_prec(t_flags *param)
 		new[i++] = param->buf[len++];
 	new = max_width_zero(param, new, i - 1);
 	new[i] = '\0';
+	free(param->buf);
 	param->buf = new;
 	return (param);
 }
@@ -75,9 +80,9 @@ t_flags	*treat_prec(t_flags *param)
 		param->buf[param->maxwidth] = '\0';
 	if (is_in_set(param->conv_type, "diuxX"))
 		nbr_prec(param);
-	if (param->minus)
+	if (param->minus && !param->error)
 		wdth_right(param);
-	else
+	else if (!param->error)
 	{
 		if (param->zero && param->star)
 			wdth_left(param, '0');

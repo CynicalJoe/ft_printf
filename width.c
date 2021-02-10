@@ -21,7 +21,7 @@ t_flags	*wdth_left(t_flags *param, char c)
 	len = ft_strlen(param->buf);
 	i = 0;
 	if (!(new = malloc(sizeof(char) * (param->minwidth + len + 1))))
-		return (NULL);
+		return (error(param));
 	while (i + len < param->minwidth)
 	{
 		new[i] = c;
@@ -47,7 +47,7 @@ t_flags	*wdth_right(t_flags *param)
 
 	if (!(new = malloc(sizeof(char) *
 	(param->minwidth + ft_strlen(param->buf) + 1))))
-		return (NULL);
+		return (error(param));
 	i = 0;
 	while (param->buf[i])
 	{
@@ -69,15 +69,16 @@ t_flags	*get_width(t_flags *param)
 {
 	size_t i;
 
-	i = param->index;
-	i++;
-	if (param->print[i] == '0' || param->print[i] == '-')
+	if (!param->print)
+		return (param);
+	i = param->index + 1;
+	if (param->print[i] && (param->print[i] == '0' || param->print[i] == '-'))
 		i++;
 	if (ft_isdigit(param->print[i]))
 		param->minwidth = ft_atoi(&param->print[i]);
-	while (!is_in_set(param->print[i], "cspdiuxX."))
+	while (!is_in_set(param->print[i], "cspdiuxX%.") && param->print[i])
 		i++;
-	if (param->print[i] == '.')
+	if (param->print[i] && param->print[i] == '.')
 		i++;
 	if (ft_isdigit(param->print[i]))
 		param->maxwidth = ft_atoi(&param->print[i]);

@@ -1,4 +1,4 @@
-SRCS	= conversion.c conversionptr.c flags.c ft_printf.c ressources.c untoa.c treatflags.c width.c
+SRCS	= free.c conversion.c conversionptr.c flags.c ft_printf.c ressources.c untoa.c treatflags.c width.c
 
 HEADER	= includes
 
@@ -27,7 +27,5 @@ clean:
 fclean:	clean
 	${RM} ${NAME}
 	${MAKE} fclean -C ./libft
-
-bonus: all
 
 re:	fclean all

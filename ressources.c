@@ -76,6 +76,8 @@ char	*hex_clean(char *hexa)
 	size_t	len;
 
 	i = 0;
+	if (!hexa)
+		return (NULL);
 	len = ft_strlen(hexa);
 	while (hexa[i] == '.')
 		i++;
@@ -100,6 +102,8 @@ char	*adr_frmt(char *hexa)
 	size_t	len;
 
 	i = 0;
+	if (!hexa)
+		return (NULL);
 	while (hexa[i] == '.')
 		i++;
 	len = ft_strlen(hexa) - i + 3;

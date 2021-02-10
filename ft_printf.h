@@ -24,10 +24,13 @@ typedef struct	s_flags
 	char				*buf;
 	char				conv_type;
 	int					conver;
+	int					error;
 	int					zero;
 	int					star;
 	int					point;
 	int					minus;
+	int					len;
+	int					is_term;
 	size_t				index;
 	size_t				minwidth;
 	size_t				maxwidth;
@@ -64,8 +67,6 @@ t_flags			*conversion_hexa(t_flags *param, va_list ap);
 
 t_flags			*conversion_prct(t_flags *param);
 
-t_flags			*conversion_hub(t_flags *param, va_list ap);
-
 t_flags			*initialize(char const *format);
 
 t_flags			*check_conversion(t_flags *param, va_list ap);
@@ -86,6 +87,8 @@ t_flags			*wdth_right(t_flags *param);
 
 t_flags			*nbr_prec(t_flags *param);
 
-t_flags			*handle_star(t_flags *param, va_list ap);
+t_flags			*free_error(t_flags *param);
+
+t_flags			*error(t_flags *param);
 
 #endif

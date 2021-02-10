@@ -30,12 +30,18 @@ t_flags	*initialize(char const *format)
 {
 	t_flags	*param;
 
+	if (!format)
+		return (NULL);
 	if (!(param = malloc(sizeof(t_flags))))
 		return (NULL);
-	param->print = ft_strdup(format);
+	if (!(param->print = ft_strdup(format)))
+		return (free_error(param));
 	param->buf = NULL;
 	param->conver = 0;
 	param->index = 0;
+	param->len = 0;
+	param->error = 0;
+	param->is_term = 0;
 	param->conv_type = 0;
 	param->zero = 0;
 	param->star = 0;
@@ -110,7 +116,7 @@ t_flags	*check_flags(t_flags *param, va_list ap)
 			i++;
 		}
 		if (!param->print[i])
-			return (NULL);
+			return (error(param));
 		param->conv_type = param->print[i];
 	}
 	return (param);

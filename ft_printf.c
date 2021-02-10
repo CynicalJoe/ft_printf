@@ -32,6 +32,8 @@ t_flags	*conversion_hub(t_flags *param, va_list ap)
 		if (param->conv_type == '%')
 			conversion_prct(param);
 		check_conversion(param, ap);
+		if (param->error)
+			return (free_error(param));
 	}
 	return (param);
 }
@@ -42,12 +44,15 @@ int		ft_printf(const char *format, ...)
 	t_flags	*param;
 	va_list	ap;
 
-	if (!format)
+	if (!(param = initialize(format)))
 		return (-1);
 	va_start(ap, format);
-	param = initialize(format);
-	conversion_hub(param, ap);
-	ft_putstr_fd(param->print, 0);
+	if (!(conversion_hub(param, ap)))
+	{
+		va_end(ap);
+		return (-1);
+	}	
+	ft_putstr_fd(param->print, 1);
 	len = ft_strlen(param->print);
 	va_end(ap);
 	free(param->print);
