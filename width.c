@@ -18,7 +18,7 @@ t_flags	*wdth_left(t_flags *param, char c)
 	size_t	i;
 	size_t	len;
 
-	len = ft_strlen(param->buf);
+	len = param->is_term ? 1 : ft_strlen(param->buf);
 	i = 0;
 	if (!(new = malloc(sizeof(char) * (param->minwidth + len + 1))))
 		return (error(param));
@@ -44,6 +44,8 @@ t_flags	*wdth_right(t_flags *param)
 	char	*new;
 	size_t	i;
 
+	if (param->is_term && param->minus && param->minwidth)
+		param->minwidth--;
 	if (!(new = malloc(sizeof(char) *
 	(param->minwidth + ft_strlen(param->buf) + 1))))
 		return (error(param));

@@ -44,13 +44,9 @@ int				is_in_set(char c, char *str);
 
 char			*ft_untoa(unsigned int n);
 
-char			*copy_conv(char *src, char *dest, size_t index, size_t start);
-
 char			*hex_conv(unsigned long int n, char *base);
 
 char			*adr_frmt(char *hexa);
-
-char			*copy_start(char *src, char *dest, size_t index);
 
 char			*hex_clean(char *hexa);
 
@@ -93,5 +89,7 @@ t_flags			*free_error(t_flags *param);
 t_flags			*error(t_flags *param);
 
 t_flags			*writer(t_flags *param);
+
+t_flags			*initial_write(t_flags *param);
 
 #endif

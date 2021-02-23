@@ -31,8 +31,7 @@ t_flags	*conversion_hub(t_flags *param, va_list ap)
 			conversion_hexa(param, ap);
 		if (param->conv_type == '%')
 			conversion_prct(param);
-		if (param->is_term)
-			return (param);
+		writer(param);
 		check_conversion(param, ap);
 		if (param->error)
 			return (free_error(param));

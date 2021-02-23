@@ -79,7 +79,8 @@ t_flags	*check_conversion(t_flags *param, va_list ap)
 {
 	size_t	i;
 
-	i = param->index + param->is_term;
+	initial_write(param);
+	i = param->index;
 	if (param->conv_type == '%')
 	{
 		while (param->print[i] != '%')

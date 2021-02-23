@@ -14,30 +14,18 @@
 
 t_flags	*conversion_char(t_flags *param, va_list ap)
 {
-	size_t	i;
-	size_t	j;
-	char	*new_print;
+	size_t i;
 
+	i = param->index;
 	if (!(param->buf = malloc(sizeof(char) * 2)))
 		return (error(param));
 	param->buf[0] = (char)va_arg(ap, int);
 	param->buf[1] = '\0';
 	if (!(flag_hub(param)))
 		return (error(param));
-	if (!(new_print = (char*)malloc(sizeof(char) *
-	(ft_strlen(param->print) + ft_strlen(param->buf) + 1))))
-		return (error(param));
-	copy_start(param->print, new_print, param->index);
-	i = param->index;
-	copy_conv(param->buf, new_print, i, 0);
-	j = i + ft_strlen(param->buf);
 	while (param->print[i] != 'c')
 		i++;
-	param->index += (ft_strlen(param->buf) + param->is_term);
-	copy_conv(param->print, new_print, j, i + 1);
-	free(param->print);
-	free(param->buf);
-	param->print = new_print;
+	param->index = i;
 	return (param);
 }
 
@@ -45,56 +33,31 @@ t_flags	*conversion_int(t_flags *param, va_list ap)
 {
 	int		n;
 	size_t	i;
-	size_t	j;
-	char	*new_print;
 
+	i = param->index;
 	n = va_arg(ap, int);
 	param->buf = ft_itoa(n);
 	if (!(flag_hub(param)))
 		return (error(param));
-	if (!(new_print = (char*)malloc(sizeof(char) *
-	(ft_strlen(param->print) + ft_strlen(param->buf) + 1))))
-		return (error(param));
-	copy_start(param->print, new_print, param->index);
-	i = param->index;
-	copy_conv(param->buf, new_print, i, 0);
-	j = i + ft_strlen(param->buf);
-	while (param->print[i] != 'd' && param->print[i] != 'i')
+	while (param->print[i] != 'i' && param->print[i] != 'd')
 		i++;
-	i++;
-	copy_conv(param->print, new_print, j, i);
-	free(param->print);
-	free(param->buf);
-	param->print = new_print;
+	param->index = i;
 	return (param);
 }
 
 t_flags	*conversion_str(t_flags *param, va_list ap)
 {
-	size_t	i;
-	size_t	j;
-	char	*new_print;
 	char	*str;
+	size_t	i;
 
+	i = param->index;
 	str = va_arg(ap, char*);
 	param->buf = ft_strdup(str);
 	if (!flag_hub(param))
 		return (error(param));
-	if (!(new_print = (char*)malloc(sizeof(char) *
-	(ft_strlen(param->print) + ft_strlen(param->buf) + 1))))
-		return (error(param));
-	copy_start(param->print, new_print, param->index);
-	i = param->index;
-	copy_conv(param->buf, new_print, i, 0);
-	j = ft_strlen(new_print);
 	while (param->print[i] != 's')
 		i++;
-	i++;
-	param->index += ft_strlen(param->buf);
-	copy_conv(param->print, new_print, j, i);
-	free(param->print);
-	free(param->buf);
-	param->print = new_print;
+	param->index = i;
 	return (param);
 }
 
@@ -102,25 +65,14 @@ t_flags	*conversion_unsgnd(t_flags *param, va_list ap)
 {
 	unsigned int	n;
 	size_t			i;
-	size_t			j;
-	char			*new_print;
 
 	n = va_arg(ap, unsigned int);
 	param->buf = ft_untoa(n);
 	if (!(flag_hub(param)))
 		return (NULL);
-	if (!(new_print = (char*)malloc(sizeof(char) *
-	(ft_strlen(param->print) + ft_strlen(param->buf) + 1))))
-		return (error(param));
-	copy_start(param->print, new_print, param->index);
 	i = param->index;
-	copy_conv(param->buf, new_print, i, 0);
-	j = i + ft_strlen(param->buf);
 	while (param->print[i] != 'u')
 		i++;
-	copy_conv(param->print, new_print, j, i + 1);
-	free(param->print);
-	free(param->buf);
-	param->print = new_print;
+	param->index = i;
 	return (param);
 }

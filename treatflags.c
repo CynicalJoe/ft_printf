@@ -22,7 +22,7 @@ char	*max_width_zero(t_flags *param, char *new, size_t index)
 
 t_flags	*flag_hub(t_flags *param)
 {
-	if (param->error)
+	if (param->error || !param->buf)
 		return (NULL);
 	if (param->buf[0] == '\0' && param->conv_type == 'c')
 		param->is_term++;

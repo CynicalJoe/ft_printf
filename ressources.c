@@ -12,35 +12,6 @@
 
 #include "ft_printf.h"
 
-char	*copy_conv(char *src, char *dest, size_t index, size_t start)
-{
-	size_t j;
-
-	j = index;
-	while (src[start])
-	{
-		dest[j] = src[start];
-		start++;
-		j++;
-	}
-	dest[j] = '\0';
-	return (dest);
-}
-
-char	*copy_start(char *src, char *dest, size_t index)
-{
-	size_t	i;
-
-	i = 0;
-	while (i != index)
-	{
-		dest[i] = src[i];
-		i++;
-	}
-	dest[i] = '\0';
-	return (dest);
-}
-
 char	*hex_conv(unsigned long int n, char *base)
 {
 	unsigned long int		r;
