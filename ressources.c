@@ -48,17 +48,17 @@ char	*hex_conv(unsigned long int n, char *base)
 	char					*ret;
 
 	i = 0;
-	if (!(ret = (char *)malloc(sizeof(char) * 9)))
+	if (!(ret = (char *)malloc(sizeof(char) * 16)))
 		return (NULL);
-	while (i < 8)
+	while (i < 15)
 	{
 		ret[i] = '.';
 		i++;
 	}
-	ret[8] = '\0';
+	ret[15] = '\0';
 	i--;
 	if (n == 0)
-		ret[7] = '0';
+		ret[14] = '0';
 	while (n)
 	{
 		r = n % 16;
@@ -115,11 +115,6 @@ char	*adr_frmt(char *hexa)
 	while (hexa[i])
 		adr[len++] = hexa[i++];
 	adr[len] = '\0';
-	if (!ft_strncmp(adr, "0x0", ft_strlen(adr)))
-	{
-		free(adr);
-		adr = ft_strdup("(nil)");
-	}
 	free(hexa);
 	return (adr);
 }

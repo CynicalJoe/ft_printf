@@ -33,8 +33,8 @@ t_flags	*conversion_char(t_flags *param, va_list ap)
 	j = i + ft_strlen(param->buf);
 	while (param->print[i] != 'c')
 		i++;
-	i++;
-	copy_conv(param->print, new_print, j, i);
+	param->index += (ft_strlen(param->buf) + param->is_term);
+	copy_conv(param->print, new_print, j, i + 1);
 	free(param->print);
 	free(param->buf);
 	param->print = new_print;
@@ -90,6 +90,7 @@ t_flags	*conversion_str(t_flags *param, va_list ap)
 	while (param->print[i] != 's')
 		i++;
 	i++;
+	param->index += ft_strlen(param->buf);
 	copy_conv(param->print, new_print, j, i);
 	free(param->print);
 	free(param->buf);
@@ -117,8 +118,7 @@ t_flags	*conversion_unsgnd(t_flags *param, va_list ap)
 	j = i + ft_strlen(param->buf);
 	while (param->print[i] != 'u')
 		i++;
-	i++;
-	copy_conv(param->print, new_print, j, i);
+	copy_conv(param->print, new_print, j, i + 1);
 	free(param->print);
 	free(param->buf);
 	param->print = new_print;

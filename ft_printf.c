@@ -15,7 +15,7 @@
 t_flags	*conversion_hub(t_flags *param, va_list ap)
 {
 	check_conversion(param, ap);
-	while (param->conver && !param->is_term)
+	while (param->conver)
 	{
 		if (param->conv_type == 'd' || param->conv_type == 'i')
 			conversion_int(param, ap);
@@ -31,6 +31,8 @@ t_flags	*conversion_hub(t_flags *param, va_list ap)
 			conversion_hexa(param, ap);
 		if (param->conv_type == '%')
 			conversion_prct(param);
+		if (param->is_term)
+			return (param);
 		check_conversion(param, ap);
 		if (param->error)
 			return (free_error(param));
@@ -51,7 +53,7 @@ int		ft_printf(const char *format, ...)
 	{
 		va_end(ap);
 		return (-1);
-	}	
+	}
 	writer(param);
 	len = param->len;
 	va_end(ap);

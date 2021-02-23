@@ -22,10 +22,11 @@ t_flags	*wdth_left(t_flags *param, char c)
 	i = 0;
 	if (!(new = malloc(sizeof(char) * (param->minwidth + len + 1))))
 		return (error(param));
-	if (is_in_set(param->conv_type, "id") && c == '0' && param->buf[0] == '-' && len < param->minwidth)
+	if (is_in_set(param->conv_type, "idxX") && c == '0' &&
+	param->buf[0] == '-' && len < param->minwidth)
 	{
 		new[i++] = '-';
-		param->buf[0] = '0';
+		param->buf[0] = c;
 	}
 	while (i + len < param->minwidth)
 		new[i++] = c;
@@ -70,13 +71,16 @@ t_flags	*get_width(t_flags *param)
 	if (!param->print)
 		return (param);
 	i = param->index + 1;
-	while (param->print[i] && (param->print[i] == '0' || param->print[i] == '-'))
+	while (param->print[i] && (param->print[i] == '0' ||
+	param->print[i] == '-'))
 		i++;
 	if (ft_isdigit(param->print[i]))
 	{
 		if (!param->minwidth)
 			param->minwidth = ft_atoi(&param->print[i]);
 	}
+	if (!param->point)
+		return (param);
 	while (!is_in_set(param->print[i], "cspdiuxX%.") && param->print[i])
 		i++;
 	if (param->print[i] && param->print[i] == '.')
@@ -87,4 +91,18 @@ t_flags	*get_width(t_flags *param)
 			param->maxwidth = ft_atoi(&param->print[i]);
 	}
 	return (param);
+}
+
+int		is_in_set(char c, char *str)
+{
+	size_t	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (c == str[i])
+			return (1);
+		i++;
+	}
+	return (0);
 }

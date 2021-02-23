@@ -18,8 +18,14 @@ t_flags	*handle_star(t_flags *param, va_list ap)
 
 	temp = va_arg(ap, int);
 	if (temp < 0)
+	{
+		if (!param->point)
+			param->minus = 1;
+		else
+			param->minus -= 2;
 		temp = -temp;
-	if (param->point == 1)
+	}
+	if (param->point)
 		param->maxwidth = (size_t)temp;
 	else
 		param->minwidth = (size_t)temp;
@@ -60,8 +66,12 @@ t_flags	*reset_flags(t_flags *param)
 	param->star = 0;
 	param->point = 0;
 	param->minus = 0;
-	param->minwidth = 0;
-	param->maxwidth = 0;
+	param->is_term = 0;
+	if (param->conv_type != '%')
+	{
+		param->minwidth = 0;
+		param->maxwidth = 0;
+	}
 	return (param);
 }
 
@@ -69,16 +79,14 @@ t_flags	*check_conversion(t_flags *param, va_list ap)
 {
 	size_t	i;
 
-	reset_flags(param);
-	i = param->index;
+	i = param->index + param->is_term;
 	if (param->conv_type == '%')
 	{
 		while (param->print[i] != '%')
 			i++;
 		i++;
 	}
-	else if (param->index)
-		i++;
+	reset_flags(param);
 	while (param->print[i])
 	{
 		if (param->print[i] == '%')
