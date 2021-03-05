@@ -10,5 +10,5 @@ make will create libftprintf.a ; this library contain the ft_printf(const char* 
 
 make clean to remove object files ; fclean to remove them and the library.
 
-those conversions are handled : "%cspuidxX"
+those conversions are handled : "%cspuidxX".
 those flags are handled : "0.-*"
