@@ -13,6 +13,6 @@ make clean to remove object files ; fclean to remove them and the library.
 
 
 
-those conversions are handled : %cspuidxX 
+those conversions are handled : "%cspuidxX"
 
-those flags are handled : 0.-*
+those flags are handled : "0.-*"
