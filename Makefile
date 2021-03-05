@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: gtournay </var/mail/gtournay>              +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2021/02/25 11:32:15 by gtournay          #+#    #+#              #
+#    Updated: 2021/02/25 11:32:32 by gtournay         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 SRCS	= writer.c free.c conversion.c conversionptr.c flags.c ft_printf.c ressources.c untoa.c treatflags.c width.c
 
 HEADER	= includes

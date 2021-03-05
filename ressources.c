@@ -12,24 +12,24 @@
 
 #include "ft_printf.h"
 
-char	*hex_conv(unsigned long int n, char *base)
+char	*hex_conv(unsigned long long int n, char *base)
 {
-	unsigned long int		r;
-	size_t					i;
-	char					*ret;
+	unsigned long long int		r;
+	size_t						i;
+	char						*ret;
 
 	i = 0;
-	if (!(ret = (char *)malloc(sizeof(char) * 16)))
+	if (!(ret = (char *)malloc(sizeof(char) * 21)))
 		return (NULL);
-	while (i < 15)
+	while (i < 20)
 	{
 		ret[i] = '.';
 		i++;
 	}
-	ret[15] = '\0';
+	ret[20] = '\0';
 	i--;
 	if (n == 0)
-		ret[14] = '0';
+		ret[19] = '0';
 	while (n)
 	{
 		r = n % 16;

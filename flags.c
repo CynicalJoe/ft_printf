@@ -6,7 +6,7 @@
 /*   By: gtournay <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/08 09:38:18 by gtournay          #+#    #+#             */
-/*   Updated: 2020/10/08 09:38:22 by gtournay         ###   ########.fr       */
+/*   Updated: 2021/02/25 11:20:49 by gtournay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ t_flags	*check_flags(t_flags *param, va_list ap)
 	{
 		while (param->print[i] && !is_in_set(param->print[i], "%cspdiuxX"))
 		{
-			if (param->print[i] == '0')
+			if (param->print[i] == '0' && i == param->index + 1)
 				param->zero = 1;
 			else if (param->print[i] == '-')
 				param->minus = 1;

@@ -17,7 +17,6 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include "libft/libft.h"
-# include <stdio.h>
 
 typedef struct	s_flags
 {
@@ -44,7 +43,7 @@ int				is_in_set(char c, char *str);
 
 char			*ft_untoa(unsigned int n);
 
-char			*hex_conv(unsigned long int n, char *base);
+char			*hex_conv(unsigned long long int n, char *base);
 
 char			*adr_frmt(char *hexa);
 

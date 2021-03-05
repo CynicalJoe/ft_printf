@@ -14,12 +14,12 @@
 
 t_flags	*conversion_ptr(t_flags *param, va_list ap)
 {
-	unsigned long int	*n;
-	unsigned long int	adr;
-	size_t				i;
+	unsigned long long int	*n;
+	unsigned long long int	adr;
+	size_t					i;
 
 	n = va_arg(ap, void*);
-	adr = (unsigned long int)n;
+	adr = (unsigned long long int)n;
 	param->buf = adr_frmt(hex_conv(adr, "0123456789abcdef"));
 	if (!flag_hub(param))
 		return (error(param));

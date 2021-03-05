@@ -35,7 +35,8 @@ t_flags	*flag_hub(t_flags *param)
 			wdth_right(param);
 		else
 		{
-			if (param->zero && !param->error && param->conv_type != 'p')
+			if (param->zero && !param->error && param->conv_type != 'p' &&
+			param->conv_type != 's')
 				wdth_left(param, '0');
 			else if (!param->error)
 				wdth_left(param, ' ');
@@ -89,7 +90,7 @@ t_flags	*treat_prec(t_flags *param)
 	else if (!param->error)
 	{
 		if (param->zero && param->star && (!is_in_set(param->conv_type,
-		"uxXdi") || param->minus == -2))
+		"uxXdis") || param->minus == -2))
 			wdth_left(param, '0');
 		else
 			wdth_left(param, ' ');
