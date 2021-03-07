@@ -69,7 +69,7 @@ t_flags	*conversion_unsgnd(t_flags *param, va_list ap)
 	n = va_arg(ap, unsigned int);
 	param->buf = ft_untoa(n);
 	if (!(flag_hub(param)))
-		return (NULL);
+		return (error(param));
 	i = param->index;
 	while (param->print[i] != 'u')
 		i++;
